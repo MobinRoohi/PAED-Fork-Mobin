@@ -17,8 +17,8 @@ def train_test_split(*args, **kwargs) -> list:
 
 class RelationSentence(BaseModel):
     tokens: List[str]
-    head: List[str]  # was List[int]
-    tail: List[str]
+    head: List[int]  # Fixed back to int
+    tail: List[int]  # Similar to before fork
     label: str
     head_id: str = ""
     tail_id: str = ""
