@@ -17,8 +17,8 @@ def train_test_split(*args, **kwargs) -> list:
 
 class RelationSentence(BaseModel):
     tokens: List[str]
-    head: List[int]  # Fixed back to int
-    tail: List[int]  # Similar to before fork
+    head: List[int]
+    tail: List[int]
     label: str
     head_id: str = ""
     tail_id: str = ""
@@ -27,12 +27,10 @@ class RelationSentence(BaseModel):
     raw: str = ""
     score: float = 0.0
     zerorc_included: bool = True
-    label_scores: Dict[str, float] = {}  # Fix: save all logits
 
     def as_tuple(self) -> Tuple[str, str, str]:
-        # head = " ".join([self.tokens[i] for i in self.head])
-        head = " ".join(self.head)
-        tail = " ".join(self.tail)
+        head = " ".join([self.tokens[i] for i in self.head])
+        tail = " ".join([self.tokens[i] for i in self.tail])
         return head, self.label, tail
 
     def as_line(self) -> str:
@@ -43,7 +41,7 @@ class RelationSentence(BaseModel):
             if len(x) == 0:
                 return False
         for x in [self.head, self.tail]:
-            if not x:
+            if -1 in x:
                 return False
         return True
 
@@ -56,8 +54,8 @@ class RelationSentence(BaseModel):
         tokens = text.split()
         sent = cls(
             tokens=tokens,
-            head=head.split(),  # find_span(head, tokens)
-            tail=tail.split(),
+            head=find_span(head, tokens),
+            tail=find_span(tail, tokens),
             label=label,
         )
         if strict:
