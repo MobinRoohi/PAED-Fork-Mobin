@@ -717,41 +717,47 @@ class ExtractorArg(BaseModel):
 
 
 if __name__ == "__main__":
-    # Re-labeled dataset
-    run_name = "/runs"
-    data_name = os.environ['DATA']
-    save_dir = "outputs/wrapper/" + data_name + "/"
-    path_model = save_dir + run_name
-    path_train = f"{os.environ['PROJECT']}/data/{data_name}/train.jsonl"
-    path_dev = f"{os.environ['PROJECT']}/data/{data_name}/dev.jsonl"
-    path_test = f"{os.environ['PROJECT']}/data/{data_name}/test.jsonl"
-    split = "/"
-
-    if os.environ.get("MODE", "") == "PREDICT":
-        # path_model = f"{os.environ['PROJECT']}/dependencies/PAED/outputs/wrapper/personaext_peacok/runs"
-        run_eval(save_dir=save_dir,
-                 path_model=path_model,
-                 path_test=path_test,
-                 split=split,
-                 data_name=data_name,
-                 mode='single',
-                 last=True)  # IDK
-    else:
-        main(
-            path_train=path_train,
-            path_dev=path_dev,
-            path_test=path_test,
-            save_dir=save_dir,
-            path_model=path_model,
-            data_name=data_name,
-            split=split,
-            last=False,
-            synthetic=True)  # set synthetic=False if there has been a synthetic.jsonl file in the directory.
-        run_eval(save_dir=save_dir,
-                 path_model=path_model,
-                 path_test=path_test,
-                 split=split,
-                 data_name=data_name,
-                 mode='single',
-                 last=False)
-
+    num_test_labels = [10]  # [5, 10, 15]
+    seeds = [0]  # [0, 1, 2, 3, 4]
+    for n in num_test_labels:
+        for s in seeds:
+            split_ = f"unseen_{n}_seed_{s}"
+            print("processing split:", split_)
+            
+            run_name = '/runs'
+            data_name = 'u2t_map_all'
+            save_dir = "outputs/wrapper/" + data_name + "/" + split_
+            path_model = save_dir + run_name
+            path_train = "outputs/data/splits/zero_rte/" + data_name + "/" + split_ + "/train.jsonl"
+            path_dev = "outputs/data/splits/zero_rte/" + data_name + "/" + split_ + "/dev.jsonl"
+            path_test = "outputs/data/splits/zero_rte/" + data_name + "/" + split_ + "/test.jsonl"
+            split = split_ + "/"
+            main(
+                path_train=path_train,
+                path_dev=path_dev,
+                path_test=path_test,
+                save_dir=save_dir,
+                path_model=path_model,
+                data_name=data_name,
+                split=split,
+                last=False,
+                synthetic=True)  # set synthetic=False if there has been a synthetic.jsonl file in the directory.
+            run_eval(save_dir=save_dir,
+                     path_model=path_model,
+                     path_test=path_test,
+                     split=split,
+                     data_name=data_name,
+                     mode='single',
+                     last=False)
+            # run_eval(save_dir=save_dir,
+            #          path_model=path_model,
+            #          path_test=path_test,
+            #          data_name=data_name,
+            #          split=split,
+            #          mode='trsingle',
+            #          last=False)
+            # run_eval(save_dir=save_dir,
+            #          path_model=path_model,
+            #          path_test=path_test,
+            #          split=split,
+            #          mode='multi')
