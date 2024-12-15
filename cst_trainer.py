@@ -29,7 +29,7 @@ from torch.utils.data import DataLoader, RandomSampler
 from transformers.data.data_collator import DataCollator
 from transformers.utils import is_datasets_available, is_sagemaker_mp_enabled, logging, \
     is_torch_tpu_available, is_apex_available
-from transformers.trainer_pt_utils import IterableDatasetShard, get_model_param_count, nested_detach
+from transformers.trainer_pt_utils import IterableDatasetShard, nested_detach
 from transformers.trainer_utils import seed_worker, has_length, ShardedDDPOption, HPSearchBackend, speed_metrics, \
     TrainOutput, EvalPrediction
 from transformers.debug_utils import DebugOption, DebugUnderflowOverflow
