@@ -53,6 +53,7 @@ class RelationModel(DynamicModel):
             self.pipe_name,
             model=self.model_dir,
             tokenizer=self.model_name,
+            framework="pt", # Mobin: Necessary change to avoid the HDF5 error caused by keras
             device=0 if torch.cuda.is_available() else -1,
             **kwargs,
         )
