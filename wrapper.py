@@ -17,7 +17,7 @@ from utils import (RelationSentence, delete_checkpoints, safe_divide, load_u2t)
 
 class Sentence(BaseModel):
     triplets: List[RelationSentence]
-
+    
     @property
     def tokens(self) -> List[str]:
         return self.triplets[0].tokens

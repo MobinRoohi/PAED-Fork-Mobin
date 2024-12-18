@@ -683,8 +683,8 @@ class ExtractorArg(BaseModel):
     warmup_ratio: float = 0.2
     lr_pretrain: float = 3e-5 
     lr_finetune: float = 6e-6 
-    epochs_pretrain: int = 5 
-    epochs_finetune: int = 5
+    epochs_pretrain: int = 1 # Changed it to 1 : Mobin 
+    epochs_finetune: int = 1 # Changed it to 1 : Mobin
     label_smoothing_factor: float = 0.
     train_fp16: bool = True 
 
