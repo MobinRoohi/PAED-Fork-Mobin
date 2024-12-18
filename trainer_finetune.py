@@ -713,6 +713,7 @@ class ExtractorArg(BaseModel):
         return self.lr_pretrain if self.do_pretrain else self.lr_finetune
 
     def get_epochs(self) -> int:
+        print("epoch num:", self.epochs_pretrain)
         return self.epochs_pretrain if self.do_pretrain else self.epochs_finetune
 
 

@@ -28,8 +28,8 @@ class RelationModel(DynamicModel):
     warmup_ratio: float = 0.2
     lr_pretrain: float = 3e-4
     lr_finetune: float = 3e-5
-    epochs_pretrain: int = 3
-    epochs_finetune: int = 5
+    epochs_pretrain: int = 1 # Mobin: Reduced to 1
+    epochs_finetune: int = 1 # Mobin: Reduced to 1
     train_fp16: bool = True
     # eos_token_id: int = 50256  # pad_token_id = tokenizer.eos_token_id
 
