@@ -315,7 +315,7 @@ class Trainer(nn.Module):
 
         model.zero_grad()
         for i in tqdm(range(epoch), desc='train ' + model_type, leave=True):
-
+            print(f"Epoch {i}")
             model.train()
             results = {}
             for idx, dataset in tqdm(enumerate(dataloader_tr), desc='iteration', leave=True, position=0):
